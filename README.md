@@ -194,4 +194,6 @@ MIT
 
 ---
 
+**GitHub:** https://github.com/Crazyal55/SLV-Tracker
+
 **Built for generating monthly income from silver holdings.** 🥈📈

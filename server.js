@@ -63,7 +63,7 @@ const setSetting = (key, value) => {
 const ALPHA_VANTAGE_KEY = process.env.ALPHA_VANTAGE_KEY || 'demo';
 const fetchSLVPrices = async (days = 90) => {
   try {
-    const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SLV&outputsize=full&apikey=${ALPHA_VANTAGE_KEY}`;
+    const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SLV&outputsize=compact&apikey=${ALPHA_VANTAGE_KEY}`;
     const response = await axios.get(url);
     const data = response.data['Time Series (Daily)'];
 
@@ -156,12 +156,13 @@ const calculatePremium = (currentPrice, strikePrice, daysToExpiry, impliedVolati
 // Generate next monthly expiration date
 const getNextMonthlyExpiry = () => {
   const now = new Date();
-  let nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0); // Last day of next month
 
-  // Find the Friday closest to end of month (standard options expire 3rd Friday)
+  // Find the 3rd Friday of the next month
   const year = now.getFullYear();
-  const month = now.getMonth() + 1; // Next month
-  const thirdFriday = new Date(year, month - 1, 1);
+  const currentMonth = now.getMonth();
+  const nextMonth = currentMonth + 1;
+
+  const thirdFriday = new Date(year, nextMonth, 1);
 
   // Find the third Friday
   let fridays = 0;
